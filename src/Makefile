@@ -1,9 +1,9 @@
-LIBRARIES = libb64.a
+LIBRARIES = libb64.a libb64.so
 
 # Build flags (uncomment one)
 #############################
 # Release build flags
-CFLAGS += -O3
+CFLAGS += -O3 -fPIC
 #############################
 # Debug build flags
 #CFLAGS += -g
@@ -26,6 +26,9 @@ all: $(TARGETS) #strip
 
 libb64.a: cencode.o cdecode.o
 	$(AR) $(ARFLAGS) $@ $^
+
+libb64.so: cencode.o cdecode.o
+	$(CC) -shared -o $@ $^
 
 strip:
 	$(STRIP) $(BINARIES) *.exe
